@@ -14,7 +14,7 @@ const Layout = (props) => {
         <meta name="description" content="Ashion Template" />
         <meta name="keywords" content="Ashion, unica, creative, html" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />        
-        <title>LaLaBuy 美國代購 {title ? "|" + title : ""}</title>
+        <title>{title ? title + " ": ""}LaLaBuy 美國代購</title>
       </Head>
 
       <>

@@ -21,7 +21,7 @@ const ProductDetail = (props) => {
   useEffect(() => {}, [result]);
 
   return (
-    <Layout title={"Shop"} loading={false}>
+    <Layout title={result.name} loading={false}>
       <section className="product-details spad">
         <div className="container">
           <div className="row">
