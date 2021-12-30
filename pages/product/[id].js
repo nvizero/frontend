@@ -21,7 +21,7 @@ const ProductDetail = (props) => {
   useEffect(() => {}, [result]);
 
   return (
-    <Layout title={result.name} loading={false}>
+    <Layout title={result.name} loading={false} descript={result.name} img={result.image[0]}>
       <section className="product-details spad">
         <div className="container">
           <div className="row">
