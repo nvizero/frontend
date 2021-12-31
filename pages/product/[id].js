@@ -4,22 +4,24 @@ import ProductList from "@/pages/components/shop/productList";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 // import { useGetProduct } from "actions/products";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import ProductTabs from "@/pages/product/productTabs";
 // import useSWR from "swr";
 // import { fetcher } from "@/actions/index";
-
+import { GetStaticProps } from "next";
 
 
 const ProductDetail = (props) => {  
   let { result } = props;
-  // const router = useRouter();
+   const router = useRouter();
   // const { pdata, prodloading } = useGetProduct(router.query.id);
   const { data, loading } = useProducts();
   useEffect(() => {}, [result]);
-
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
   return (
     <Layout title={result.name} loading={false} descript={result.name} img={result.image[0]}>
       <section className="product-details spad">
@@ -161,13 +163,36 @@ const ProductDetail = (props) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  
-  const { id } = context.query;
-  const res = await fetch(`${process.env.PRODUCT_API}api/v1/product/${id}`);
+
+ 
+
+export async function getStaticPaths() {
+  // Call an external API endpoint to get posts
+  let  url = `${process.env.PRODUCT_API}`+'api/v1/productList';  
+  const res = await fetch(url)
+  const posts = await res.json()
+  if (!posts) {
+    return {
+      notFound: true,
+    }
+  }
+  // Get the paths we want to pre-render based on posts
+  const paths = posts.map((post) => ({
+    params: { id: post.id.toString() },
+  }))
+
+  // We'll pre-render only these paths at build time.
+  // { fallback: false } means other routes should 404.
+  return { paths, fallback: false }
+}
+
+export async function getStaticProps({ params }) {
+  // console.log(params , '...3');
+  // const { id } = context.query;
+  const res = await fetch(`${process.env.PRODUCT_API}api/v1/product/${params.id}`);
   let result = await res.json();
   return {
-    props: { result: result }, // will be passed to the page component as props
+    props: { result }, // will be passed to the page component as props
   };
 }
 
