@@ -1,0 +1,209 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model admin_menu {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  parent_id  Int       @default(0)
+  order      Int       @default(0)
+  title      String    @db.VarChar(50)
+  icon       String    @db.VarChar(50)
+  uri        String?   @db.VarChar(255)
+  permission String?   @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+model admin_operation_log {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  user_id    Int
+  path       String    @db.VarChar(255)
+  method     String    @db.VarChar(10)
+  ip         String    @db.VarChar(255)
+  input      String    @db.Text
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+
+  @@index([user_id], map: "admin_operation_log_user_id_index")
+}
+
+model admin_permissions {
+  id          Int       @id @default(autoincrement()) @db.UnsignedInt
+  name        String    @unique(map: "admin_permissions_name_unique") @db.VarChar(50)
+  slug        String    @unique(map: "admin_permissions_slug_unique") @db.VarChar(50)
+  http_method String?   @db.VarChar(255)
+  http_path   String?   @db.Text
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model admin_role_menu {
+  role_id    Int
+  menu_id    Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+
+  @@index([role_id, menu_id], map: "admin_role_menu_role_id_menu_id_index")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model admin_role_permissions {
+  role_id       Int
+  permission_id Int
+  created_at    DateTime? @db.Timestamp(0)
+  updated_at    DateTime? @db.Timestamp(0)
+
+  @@index([role_id, permission_id], map: "admin_role_permissions_role_id_permission_id_index")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model admin_role_users {
+  role_id    Int
+  user_id    Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+
+  @@index([role_id, user_id], map: "admin_role_users_role_id_user_id_index")
+  @@ignore
+}
+
+model admin_roles {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  name       String    @unique(map: "admin_roles_name_unique") @db.VarChar(50)
+  slug       String    @unique(map: "admin_roles_slug_unique") @db.VarChar(50)
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model admin_user_permissions {
+  user_id       Int
+  permission_id Int
+  created_at    DateTime? @db.Timestamp(0)
+  updated_at    DateTime? @db.Timestamp(0)
+
+  @@index([user_id, permission_id], map: "admin_user_permissions_user_id_permission_id_index")
+  @@ignore
+}
+
+model admin_users {
+  id             Int       @id @default(autoincrement()) @db.UnsignedInt
+  username       String    @unique(map: "admin_users_username_unique") @db.VarChar(190)
+  password       String    @db.VarChar(60)
+  name           String    @db.VarChar(255)
+  avatar         String?   @db.VarChar(255)
+  remember_token String?   @db.VarChar(100)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+}
+
+model category {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  title      String    @db.VarChar(255)
+  parent_id  Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+}
+
+model category_styles {
+  id          BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  category_id Int
+  name        String    @db.VarChar(255)
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+}
+
+model failed_jobs {
+  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  uuid       String   @unique(map: "failed_jobs_uuid_unique") @db.VarChar(255)
+  connection String   @db.Text
+  queue      String   @db.Text
+  payload    String   @db.LongText
+  exception  String   @db.LongText
+  failed_at  DateTime @default(now()) @db.Timestamp(0)
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement()) @db.UnsignedInt
+  migration String @db.VarChar(255)
+  batch     Int
+}
+
+model order_details {
+  id                BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  order_id          Int
+  user_id           Int
+  user_name         String    @db.VarChar(255)
+  price             Int
+  num               Int
+  text              String    @db.Text
+  category_id       Int
+  category_style_id Int
+  created_at        DateTime? @db.Timestamp(0)
+  updated_at        DateTime? @db.Timestamp(0)
+}
+
+model orders {
+  id         BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  user_id    Int
+  user_name  String    @db.VarChar(255)
+  status     Int
+  created_at DateTime? @db.Timestamp(0)
+  updated_at DateTime? @db.Timestamp(0)
+  serial     String    @unique(map: "orders_serial_unique") @db.VarChar(255)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model password_resets {
+  email      String    @db.VarChar(255)
+  token      String    @db.VarChar(255)
+  created_at DateTime? @db.Timestamp(0)
+
+  @@index([email], map: "password_resets_email_index")
+  @@ignore
+}
+
+model personal_access_tokens {
+  id             BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  tokenable_type String    @db.VarChar(255)
+  tokenable_id   BigInt    @db.UnsignedBigInt
+  name           String    @db.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @db.VarChar(64)
+  abilities      String?   @db.Text
+  last_used_at   DateTime? @db.Timestamp(0)
+  created_at     DateTime? @db.Timestamp(0)
+  updated_at     DateTime? @db.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
+}
+
+model products {
+  id          BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  name        String?   @db.VarChar(255)
+  description String?   @db.Text
+  image       String?   @db.Text
+  price       Decimal   @db.Decimal(6, 2)
+  created_at  DateTime? @db.Timestamp(0)
+  updated_at  DateTime? @db.Timestamp(0)
+  category_id Int
+  tags        String    @db.VarChar(255)
+}
+
+model users {
+  id                BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  name              String    @db.VarChar(255)
+  email             String    @unique(map: "users_email_unique") @db.VarChar(255)
+  email_verified_at DateTime? @db.Timestamp(0)
+  password          String    @db.VarChar(255)
+  remember_token    String?   @db.VarChar(100)
+  created_at        DateTime? @db.Timestamp(0)
+  updated_at        DateTime? @db.Timestamp(0)
+}

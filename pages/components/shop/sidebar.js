@@ -23,8 +23,8 @@ function Sidebar() {
     });
   };
   const updateActiveMenu = (active, position) => {
-    console.log(active, position);
-    setUp(position)
+    
+    setUp(position);
     setActiveOut(active === sidebarType[1] ? sidebarType[0] : sidebarType[1]);
     setActiveIn(activeOut === sidebarType[0] ? sidebarType[2] : sidebarType[3]);
   };
@@ -35,15 +35,11 @@ function Sidebar() {
       return (
         <div className="card" key={key}>
           <div className={up === key ? activeOut : sidebarType[0]}>
-            <a              
-              onClick={() => updateActiveMenu(activeOut, key)}
-            >
-              {item.title}
-            </a>
+            <a onClick={() => updateActiveMenu(activeOut, key)}>{item.title}</a>
           </div>
           <div
-            id="collapseOne"            
-            className={(up === key) ? activeIn : sidebarType[3]}
+            id="collapseOne"
+            className={up === key ? activeIn : sidebarType[3]}
             data-parent="#accordionExample"
           >
             <div className="card-body">
@@ -52,7 +48,7 @@ function Sidebar() {
                   ? item.sub.map((subItem, subKey) => {
                       return (
                         <li key={subKey}>
-                          <a href="#">{subItem.title}</a>
+                          <a href=".">{subItem.title}</a>
                         </li>
                       );
                     })

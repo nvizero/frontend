@@ -3059,6 +3059,12 @@ ol {
 	line-height: 0;
 }
 
+
+.trend__item__text a:link    {color:#000;}  /* unvisited link  */
+.trend__item__text a:visited {color:#000;}  /* visited link    */
+.trend__item__text a:hover   {color:#000;}  /* mouse over link */
+.trend__item__text a:active  {color:#000;}  /* selected link   */ 
+
 .contact__address ul li span:last-child {
 	margin-right: 0;
 }

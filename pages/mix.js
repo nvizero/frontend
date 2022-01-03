@@ -1,38 +1,41 @@
-import {useState} from "react";
-import { Button ,Modal} from 'react-bootstrap';
+import { useState, useEffect } from "react";
+import { Button, Modal } from "react-bootstrap";
+import { PrismaClient } from "@prisma/client";
 
-const Mix = (props) => {
-  const [show, setShow] = useState(false);
+// const prisma = new PrismaClient()
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const Mix = ({ dbdata }) => {
+  let showdata = "",hhh = "";
+  showdata = JSON.parse(dbdata);
+  const [fin, setFin] = useState(false);  
+    hhh = showdata.map((item,key) => {
+      
+      return (
+        <div key={key}>
+          <h1>{item.title}</h1>
+        </div>
+      );
+    });
+  useEffect(() => {        
+    setFin(true);
+  }, []);
   return (
     <>
+      
+       [{fin === true ? hhh : ''}] 
        
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
       
-
-      
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Woohoo, you're reading this text in a modal!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>      
     </>
   );
 };
 
+export async function getStaticProps() {
+  const prisma = new PrismaClient();
+  const menu = await prisma.admin_menu.findMany();
+  let dbdata = JSON.stringify(menu);
+
+  return {
+    props: { dbdata },
+  };
+}
 export default Mix;

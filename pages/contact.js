@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 function Contact() {
   const todoList = useSelector((state) => state.todoList);
   return (
-    <Layout title={"About"}>
+    <Layout title={"關於我們 "}>
       <section className="contact spad">
         <div className="container">
           <div className="row">

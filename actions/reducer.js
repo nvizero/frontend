@@ -26,23 +26,33 @@ const reducer = (state = initState, action) => {
     }
     case UPDATE_PRICE: {
       let newProducts = "";
-
-      let min = action.payload.min !== "" ? action.payload.min : 0;
-      let max = action.payload.max !== "" ? action.payload.max : 0;
-      if (min > 1 && min != "") {
-        newProducts = state.productList.filter((row) => {
-          return row.price >= min;
+      
+      let min = action.payload.min !== "" ? parseInt(action.payload.min) : 0;
+      let max = action.payload.max !== "" ? parseInt(action.payload.max) : 0;
+      
+      
+      if (min > 1 && min != "" && min != 0) {
+        newProducts = state.productList.map((row) => {          
+          if(row.price >= min){
+            return row;
+          }
         });
       }
-      if (max > 1 && min != "") {
-        newProducts = state.productList.filter((row) => {
-          return row.price <= max;
+      
+      if (max > 1 && max != "" && max != 0) {
+        newProducts = state.productList.map((row) => {          
+          if(row.price <= max){
+            return row;
+          }
         });
       }
+      
+      newProducts=newProducts.filter(e =>  e)
+      
       return {
         priceMin: action.payload.min,
         priceMax: action.payload.max,
-        productList: (newProducts === "") ? state.productList : newProducts,
+        productList: newProducts
       };
     }
     default:

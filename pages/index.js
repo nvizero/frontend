@@ -14,7 +14,7 @@ export default function Home() {
       <Top />
       <Product datas={data} productLoading={loading} />
       <Banner />
-      <TrendSpad />
+      <TrendSpad datas={data} productLoading={loading} />
       
 
       <Services />
