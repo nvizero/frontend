@@ -5,6 +5,7 @@
 // const prisma = new PrismaClient()
 
 // const Mix = ({ dbdata }) => {
+    const Mix = () => {
 //   let showdata = "",hhh = "";
 //   showdata = JSON.parse(dbdata);
 //   const [fin, setFin] = useState(false);  
@@ -19,15 +20,15 @@
 //   useEffect(() => {        
 //     setFin(true);
 //   }, []);
-//   return (
-//     <>
+  return (
+    <>
       
-//        [{fin === true ? hhh : ''}] 
+       <h1>123</h1>
        
       
-//     </>
-//   );
-// };
+    </>
+  );
+ };
 
 // export async function getStaticProps() {
 //   const prisma = new PrismaClient();
@@ -38,4 +39,4 @@
 //     props: { dbdata },
 //   };
 // }
-// export default Mix;
+export default Mix;
