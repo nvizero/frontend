@@ -2,7 +2,8 @@ import Header from "./layout/header";
 import Footer from "./layout/footer";
 import Ig from "./layout/ig";
 import Head from "next/head";
- 
+import ReactGA from 'react-ga';
+ReactGA.initialize('G-YWRDWGKB4J');
 const Layout = (props) => {
   const { children, title, loading ,descript ,img } = props;
   

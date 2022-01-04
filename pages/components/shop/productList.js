@@ -1,7 +1,8 @@
 import Link from "next/link";
+
 const ProductList = ({ shopDatas, loading, limit, bstclass }) => {
   let renderHtml = "";
-
+  
   if (loading === false && shopDatas !== undefined) {
     renderHtml = shopDatas.map((row, key) => {
       return limit > key ? (
