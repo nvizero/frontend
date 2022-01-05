@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSidebar } from "@/actions/sidebar";
+import * as gtag from '@/lib/gtag'
 const sidebarType = [
   "card-heading active",
   "card-heading",
@@ -17,6 +18,11 @@ function Sidebar() {
   const { sidebarDatas, loading } = useSidebar();
   const dispatch = useDispatch();
   const updatePrice = () => {
+    gtag.event({
+      action: 'submit_form',
+      category: 'product filter',
+      label: 'udpate price'
+    });
     dispatch({
       type: "UPDATE_PRICE",
       payload: { min, max },
