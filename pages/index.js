@@ -7,6 +7,7 @@ import TrendSpad from "./components/layout/trendspad";
 import { useProducts } from "@/actions/products";
 import ReactGA from 'react-ga';
 ReactGA.pageview('index' );
+
 export default function Home() {
   const { data, loading } = useProducts();
 
