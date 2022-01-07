@@ -1,4 +1,4 @@
-const siteUrl = "http://lyra-com";
+const siteUrl = "http://lyra-buy.com";
 
 module.exports = {
   siteUrl,
