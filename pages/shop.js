@@ -1,8 +1,8 @@
-import Layout from "./components/layout";
-import Sidebar from "./components/shop/sidebar";
-import ProductList from "./components/shop/productList";
-import Paginage from "./components/paginage";
-import Breadcrumb from "./components/breadcrumb";
+import Layout from "@/components/layout";
+import Sidebar from "@/components/product/sidebar";
+import ProductList from "@/components/product/productList";
+import Paginage from "@/components/paginage";
+import Breadcrumb from "@/components/breadcrumb";
 import { useShop } from "@/actions/shop";
 import { useEffect ,useState} from "react";
 import { useSelector, useDispatch } from "react-redux";

@@ -4,14 +4,16 @@ const ProductList = ({ shopDatas, loading, limit, bstclass }) => {
   let renderHtml = "";
   
   if (loading === false && shopDatas !== undefined) {
+
     renderHtml = shopDatas.map((row, key) => {
+      let img = (row.image[0] !== undefined) ? row.image[0] :'';
       return limit > key ? (
         <div className={bstclass} key={key}>
           <div className="product__item">
             <div
               className="product__item__pic set-bg"
               style={{
-                backgroundImage: "url(" + `${process.env.image_url}` + row.image[0] + ")",
+                backgroundImage: "url(" + `${process.env.image_url}` + img + ")",
               }}
             >
               {row.tag ? (

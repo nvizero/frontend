@@ -1,4 +1,4 @@
-import Layout from "./components/layout";
+import Layout from "@/components/layout";
 import { useSelector, useDispatch } from "react-redux";
 function Contact() {
   const todoList = useSelector((state) => state.todoList);

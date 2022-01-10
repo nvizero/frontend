@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useCategory } from "@/actions/categories";
-import ProductList from "@/pages/components/shop/productList";
+import ProductList from "@/components/product/productList";
 
 const Product = (props) => {
   const { datas, productLoading } = props;
