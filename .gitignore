@@ -1,8 +1,9 @@
 ./node_modules
-./next
+./.next
 ./public/rebots.txt
 ./public/sitemap.xml
 node_modules
 public/robots.txt
 public/sitemap.xml
 next.config.js
+.next

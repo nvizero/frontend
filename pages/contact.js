@@ -18,11 +18,10 @@ function Contact() {
                         <i className="fa fa-map-marker"></i> Address
                       </h6>
                       <p>
-                        160 Pennsylvania Ave NW, Washington, Castle, PA
-                        16101-5161
+                        -
                       </p>
                     </li>
-                    <li>
+                    <li style={{"display":"none"}}>
                       <h6>
                         <i className="fa fa-phone"></i> Phone
                       </h6>
@@ -35,7 +34,7 @@ function Contact() {
                       <h6>
                         <i className="fa fa-headphones"></i> Support
                       </h6>
-                      <p>Support.photography@gmail.com</p>
+                      <p>withvictor@gmail.com</p>
                     </li>
                   </ul>
                 </div>

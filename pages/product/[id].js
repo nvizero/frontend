@@ -14,7 +14,7 @@ import { GetStaticProps } from "next";
 
 
 const ProductDetail = (props) => {  
-  let { result } = props;
+  let { result ,attrib, buyToKnow } = props;
    const router = useRouter();
   // const { pdata, prodloading } = useGetProduct(router.query.id);
   const { data, loading } = useProducts();
@@ -23,7 +23,7 @@ const ProductDetail = (props) => {
     return <div>Loading...</div>
   }
   return (
-    <Layout title={result.name} loading={false} descript={result.name} img={result.image[0]}>
+    <Layout title={result.name} loading={false} descript={result.descript} img={result.image[0]}>
       <section className="product-details spad">
         <div className="container">
           <div className="row">
@@ -55,12 +55,10 @@ const ProductDetail = (props) => {
                   <span>( 138 reviews )</span>
                 </div>
                 <div className="product__details__price">
-                  $ {result.price} <span>$ 83.0</span>
+                  $ {result.price} <span>$ {result.taiwan_price}</span>
                 </div>
                 <p>
-                  Nemo enim ipsam voluptatem quia aspernatur aut odit aut loret
-                  fugit, sed quia consequuntur magni lores eos qui ratione
-                  voluptatem sequi nesciunt.
+                {result.txt}
                 </p>
                 <div className="product__details__button">
                   <div className="quantity">
@@ -141,7 +139,7 @@ const ProductDetail = (props) => {
               </div>
             </div>
             <div className="col-lg-12">
-              <ProductTabs pdata={result} prodloading={false} />
+              <ProductTabs pdata={result} prodloading={false} buyToKnow={buyToKnow} />
             </div>
           </div>
           <div className="row">
@@ -169,8 +167,12 @@ const ProductDetail = (props) => {
 export const getServerSideProps = async ctx => {
   
   const res = await fetch(`${process.env.PRODUCT_API}api/v1/product/${ctx.params.id}`);
-  const result = await res.json();
-  return {props : { result } };
+  const pro = await res.json();  
+  const product  = pro.result;  
+  const attrib   = product.attrib;
+  const result   = product.product;
+  const buyToKnow = pro.buyToKnow;
+  return {props : { result ,attrib, buyToKnow} };
 }
 
 
