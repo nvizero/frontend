@@ -3,14 +3,10 @@ import { useProducts } from "@/actions/products";
 import ProductList from "@/components/product/productList";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-// import { useGetProduct } from "actions/products";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import ProductTabs from "@/components/product/productTabs";
-// import useSWR from "swr";
-// import { fetcher } from "@/actions/index";
-import { GetStaticProps } from "next";
 
 
 const ProductDetail = (props) => {  
@@ -22,8 +18,9 @@ const ProductDetail = (props) => {
   if (router.isFallback) {
     return <div>Loading...</div>
   }
+  
   return (
-    <Layout title={result.name} loading={false} descript={result.descript} img={result.image[0]}>
+    <Layout title={result.name} loading={false} descript={result.little+" "+result.descript} img={result.image[0]}>
       <section className="product-details spad">
         <div className="container">
           <div className="row">
@@ -44,7 +41,7 @@ const ProductDetail = (props) => {
               <div className="product__details__text">
                 <h3>
                   {result.name}
-                  <span>Brand: SKMEIMore Men Watches from SKMEI</span>
+                  <span> {result.little} </span>
                 </h3>
                 <div className="rating">
                   <i className="fa fa-star"></i>
