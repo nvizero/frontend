@@ -2,8 +2,7 @@
 import { getServerSideSitemap } from "next-sitemap";
 
 export const getServerSideProps  = async (cts) => { 
-    let url = `http://lyra-buy.com/${"api/v1/productList"}`;
-    console.log(url);
+    let url = `http://lyra-buy.com/${"api/v1/productList"}`;    
     const response = await fetch(url);
     const list  = await response.json();
 
