@@ -116,8 +116,14 @@ function Header() {
           <div className="col-lg-3">
             <div className="header__right">
               <div className="header__right__auth">
-                <a href="#">Login</a>
-                <a href="#">Register</a>
+                <Link href={"/login"}>
+                  <a href="#">登入 </a>
+                </Link>
+                
+
+                <Link href={"/register"}>
+                  <a href="#">註冊</a>
+                </Link>
               </div>
               <ul className="header__right__widget">
                 <li>

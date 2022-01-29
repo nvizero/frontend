@@ -19,40 +19,34 @@ const reducer = (state = initState, action) => {
       };
     }
     case INITIAL_PRODUCTS: {
-      
       return {
         productList: action.payload.shopDatas,
       };
     }
+
     case UPDATE_PRICE: {
       let newProducts = "";
-      
       let min = action.payload.min !== "" ? parseInt(action.payload.min) : 0;
       let max = action.payload.max !== "" ? parseInt(action.payload.max) : 0;
-      
-      
       if (min > 1 && min != "" && min != 0) {
-        newProducts = state.productList.map((row) => {          
-          if(row.price >= min){
+        newProducts = state.productList.map((row) => {
+          if (row.price >= min) {
             return row;
           }
         });
       }
-      
       if (max > 1 && max != "" && max != 0) {
-        newProducts = state.productList.map((row) => {          
-          if(row.price <= max){
+        newProducts = state.productList.map((row) => {
+          if (row.price <= max) {
             return row;
           }
         });
       }
-      
-      newProducts=newProducts.filter(e =>  e)
-      
+      newProducts = newProducts.filter((e) => e);
       return {
         priceMin: action.payload.min,
         priceMax: action.payload.max,
-        productList: newProducts
+        productList: newProducts,
       };
     }
     default:
