@@ -14,6 +14,10 @@ const ProductDetail = (props) => {
    const router = useRouter();
   // const { pdata, prodloading } = useGetProduct(router.query.id);
   const { data, loading } = useProducts();
+  let pdata = false;
+  if(loading===false){
+    pdata = data.data;    
+  }
   useEffect(() => {}, [result]);
   if (router.isFallback) {
     return <div>Loading...</div>
@@ -146,7 +150,7 @@ const ProductDetail = (props) => {
               </div>
             </div>
             <ProductList
-              shopDatas={data}
+              shopDatas={pdata}
               loading={loading}
               limit={4}
               bstclass={"col-lg-3 col-md-4 col-sm-6"}

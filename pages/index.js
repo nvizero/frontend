@@ -10,13 +10,16 @@ ReactGA.pageview('index' );
 
 export default function Home() {
   const { data, loading } = useProducts();
-   
+  let TrendSpadData = false ;
+  if(loading===false){
+    TrendSpadData =data.data;
+  }
   return (
     <Layout loading={loading}>
       <Top />
       <Product datas={data} productLoading={loading} /> 
       <Banner />
-      {/* <TrendSpad datas={data} productLoading={loading} /> */}
+      <TrendSpad datas={TrendSpadData} productLoading={loading} /> 
       
 
       <Services />
