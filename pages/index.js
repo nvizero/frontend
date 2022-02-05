@@ -10,13 +10,13 @@ ReactGA.pageview('index' );
 
 export default function Home() {
   const { data, loading } = useProducts();
-
+   
   return (
     <Layout loading={loading}>
       <Top />
-      <Product datas={data} productLoading={loading} />
+      <Product datas={data} productLoading={loading} /> 
       <Banner />
-      <TrendSpad datas={data} productLoading={loading} />
+      {/* <TrendSpad datas={data} productLoading={loading} /> */}
       
 
       <Services />

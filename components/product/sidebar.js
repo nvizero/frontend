@@ -112,7 +112,7 @@ function Sidebar() {
               </div>
             </div>
             <a href="#" onClick={updatePrice}>
-              Filter
+              搜尋
             </a>
           </div>
         </div>

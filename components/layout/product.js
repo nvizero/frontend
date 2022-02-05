@@ -6,12 +6,12 @@ const Product = (props) => {
   const { datas, productLoading } = props;
   const { cateogiesData, loading } = useCategory();
   const [productActive, setProductActive] = useState("所有");
-  const [productFilter, setProductFilter] = useState(datas);
+  const [productFilter, setProductFilter] = useState(datas.data);
 
   function activeMenu(cate) {
     setProductActive(cate);
     const regex = new RegExp(cate);
-    let filtered = datas.filter(function (item, key) {
+    let filtered = datas.data.filter(function (item, key) {
       if (cate === "所有") {
         return item;
       } else {

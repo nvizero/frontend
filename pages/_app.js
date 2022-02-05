@@ -5,11 +5,13 @@ import Script from "next/script";
 import { useRouter } from "next/router";
 import { Provider } from "react-redux";
 import reducer from "@/actions/reducer";
+// import withRedux from "next-redux-wrapper";
 
 import * as gtag from "@/lib/gtag";
 
 const store = createStore(reducer);
-const WrappedApp = ({ Component, pageProps }) => {
+ 
+const WrappedApp = ({ Component, pageProps   }) => {
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -23,8 +25,7 @@ const WrappedApp = ({ Component, pageProps }) => {
 
   return (
     <>
-      <Provider store={store}>
-        {/* Global Site Tag (gtag.js) - Google Analytics */}
+      <Provider store={store}>        
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
@@ -49,5 +50,7 @@ const WrappedApp = ({ Component, pageProps }) => {
   );
 };
 
+
+//export default withRedux(makeStore)(WrappedApp);
 export default WrappedApp;
-// export default App;
+//export default App;

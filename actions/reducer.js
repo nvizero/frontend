@@ -1,26 +1,30 @@
-const ADD_TODOLIST = "ADD_TODOLIST";
+ 
 const INITIAL_PRODUCTS = "INITIAL_PRODUCTS";
 const UPDATE_PRICE = "UPDATE_PRICE";
-
+const UPDATE_PROFILE = "UPDATE_PROFILE";
 const initState = {
   todoList: ["first"],
   priceMin: 0,
   priceMax: 0,
   productList: [],
+  is_login: 0,
+  user_token: "",
 };
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
-    case ADD_TODOLIST: {
-      const tempTodo = state.todoList.map((list) => list);
-      tempTodo.push(action.payload.listName);
+    case UPDATE_PROFILE: {
+      //登入 存TOKEN      
+      // console.table(action.payload , '......');
       return {
-        todoList: tempTodo,
+        user_token: action.payload.token,
+        is_login: action.payload.status
       };
     }
-    case INITIAL_PRODUCTS: {
-      return {
-        productList: action.payload.shopDatas,
+
+    case INITIAL_PRODUCTS: {      
+      return {        
+        productList: action.payload.pdata,
       };
     }
 
@@ -55,3 +59,4 @@ const reducer = (state = initState, action) => {
 };
 
 export default reducer;
+ 

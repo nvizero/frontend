@@ -3,8 +3,8 @@ import Link from "next/link";
 const ProductList = ({ shopDatas, loading, limit, bstclass }) => {
   let renderHtml = "";
   
-  if (loading === false && shopDatas !== undefined) {
-
+  if (loading === false && shopDatas !== undefined ) {
+    
     renderHtml = shopDatas.map((row, key) => {      
       let img = (row.image.length > 0) ?  row.image[0] :'';
       return limit > key ? (

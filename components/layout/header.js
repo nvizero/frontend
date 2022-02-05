@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import { connect, useDispatch, useStore, useSelector } from "react-redux";
 let Menu = (props) => {
   const { datas, router } = props;
   let pathname = router.pathname;
-
   let mainMenu = datas.map((item, key) => {
     let _active = pathname === item.link ? "active" : "";
     return (
@@ -48,6 +47,28 @@ let Menu = (props) => {
 };
 
 function Header() {
+  const is_login = useSelector((state) => state.is_login);
+  const user_token = useSelector((state) => state.user_token);
+  const headers = new Headers({
+    _token: user_token,
+  });
+  const handleLogout = () => {
+    (async () => {
+      try {        
+        const rawResponse = await fetch("/api/v1/logout", {
+          method: "POST",
+          body: "",
+          headers: {            
+            "content-type": "application/json",
+            authorization: `${user_token}`,
+          },
+        });
+        const content = await rawResponse.json();        
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  };
   let menus = [
     {
       key: 1,
@@ -87,7 +108,7 @@ function Header() {
         },
         {
           key: 3,
-          title: "??Jossssss",
+          title: " 12",
           link: "/shop",
           active: "/shop",
         },
@@ -116,14 +137,22 @@ function Header() {
           <div className="col-lg-3">
             <div className="header__right">
               <div className="header__right__auth">
-                <Link href={"/login"}>
-                  <a href="#">登入 </a>
-                </Link>
-                
-
-                <Link href={"/register"}>
-                  <a href="#">註冊</a>
-                </Link>
+                {is_login === 1 ? (
+                  <>
+                    <a href="#" onClick={() => handleLogout()}>
+                      登出{" "}
+                    </a>
+                  </>
+                ) : (
+                  <>
+                    <Link href={"/login"}>
+                      <a href="#">登入 </a>
+                    </Link>
+                    <Link href={"/register"}>
+                      <a href="#">註冊</a>
+                    </Link>
+                  </>
+                )}
               </div>
               <ul className="header__right__widget">
                 <li>
@@ -153,4 +182,11 @@ function Header() {
   );
 }
 
-export default Header;
+export const getInitialProps = ({ store }) => {
+  console.log(store);
+  return { custom: "custom" }; // you can pass some custom props to component from here
+};
+
+//export default connect(state => state)(Header);
+// export default Header;
+export default connect()(Header);
