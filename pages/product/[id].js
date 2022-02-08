@@ -1,6 +1,7 @@
 import Layout from "@/components/layout";
 import { useProducts } from "@/actions/products";
 import ProductList from "@/components/product/productList";
+import ProductWidget from "@/components/product/productWidget";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { useRouter } from "next/router";
@@ -11,13 +12,13 @@ import ProductTabs from "@/components/product/productTabs";
 
 const ProductDetail = (props) => {  
   let { result ,attrib, buyToKnow } = props;
-   const router = useRouter();
-  // const { pdata, prodloading } = useGetProduct(router.query.id);
+   const router = useRouter();  
   const { data, loading } = useProducts();
   let pdata = false;
   if(loading===false){
-    pdata = data.data;    
+    pdata = data.data;        
   }
+  
   useEffect(() => {}, [result]);
   if (router.isFallback) {
     return <div>Loading...</div>
@@ -63,13 +64,13 @@ const ProductDetail = (props) => {
                 </p>
                 <div className="product__details__button">
                   <div className="quantity">
-                    <span>Quantity:</span>
+                    <span>數量:</span>
                     <div className="pro-qty">
                       <input type="text" defaultValue="1" />
                     </div>
                   </div>
                   <a href="#" className="cart-btn">
-                    <span className="icon_bag_alt"></span> Add to cart
+                    <span className="icon_bag_alt"></span>加入購物車
                   </a>
                   <ul>
                     <li>
@@ -84,59 +85,7 @@ const ProductDetail = (props) => {
                     </li>
                   </ul>
                 </div>
-                <div className="product__details__widget">
-                  <ul>
-                    <li>
-                      <span>Availability:</span>
-                      <div className="stock__checkbox">
-                        <label htmlFor="stockin">
-                          In Stock
-                          <input type="checkbox" id="stockin" />
-                          <span className="checkmark"></span>
-                        </label>
-                      </div>
-                    </li>
-                    <li>
-                      <span>Available color:</span>
-                      <div className="color__checkbox">
-                        <label htmlFor="red">
-                          <input type="radio" name="color__radio" id="red" />
-                          <span className="checkmark"></span>
-                        </label>
-                        <label htmlFor="black">
-                          <input type="radio" name="color__radio" id="black" />
-                          <span className="checkmark black-bg"></span>
-                        </label>
-                        <label htmlFor="grey">
-                          <input type="radio" name="color__radio" id="grey" />
-                          <span className="checkmark grey-bg"></span>
-                        </label>
-                      </div>
-                    </li>
-                    <li>
-                      <span>Available size:</span>
-                      <div className="size__btn">
-                        <label htmlFor="xs-btn" className="active">
-                          <input type="radio" id="xs-btn" />
-                          xs
-                        </label>
-                        <label htmlFor="s-btn">
-                          <input type="radio" id="s-btn" />s
-                        </label>
-                        <label htmlFor="m-btn">
-                          <input type="radio" id="m-btn" />m
-                        </label>
-                        <label htmlFor="l-btn">
-                          <input type="radio" id="l-btn" />l
-                        </label>
-                      </div>
-                    </li>
-                    <li>
-                      <span>Promotions:</span>
-                      <p>Free shipping</p>
-                    </li>
-                  </ul>
-                </div>
+                <ProductWidget attrib={attrib} />
               </div>
             </div>
             <div className="col-lg-12">

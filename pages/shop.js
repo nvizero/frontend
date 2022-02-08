@@ -13,8 +13,7 @@ const Shop = (props) => {
   const dispatch = useDispatch();
   const { shopDatas, loading } = useShop();
   const [load, setLoad] = useState(true);
-  // let pdata = "";
-  console.log(router.query.page);
+  
   useEffect(() => {
     if (shopDatas !== undefined) {      
       let pdata = shopDatas.data;      

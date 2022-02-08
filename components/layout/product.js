@@ -6,7 +6,7 @@ const Product = (props) => {
   const { datas, productLoading } = props;
   const { cateogiesData, loading } = useCategory();
   const [productActive, setProductActive] = useState("所有");
-  const [productFilter, setProductFilter] = useState(datas.data);
+  const [productFilter, setProductFilter] = useState(datas);
 
   function activeMenu(cate) {
     setProductActive(cate);

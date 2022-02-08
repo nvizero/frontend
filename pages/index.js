@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <Layout loading={loading}>
       <Top />
-      <Product datas={data} productLoading={loading} /> 
+      <Product datas={TrendSpadData} productLoading={loading} /> 
       <Banner />
       <TrendSpad datas={TrendSpadData} productLoading={loading} /> 
       
