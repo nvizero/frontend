@@ -20,14 +20,14 @@ const ProductDetail = (props) => {
   }
   let seodescription = '';
   useEffect(() => {
-    seodescription = result.description.substr(0,result.description.length);
+    seodescription = result.description;
   }, [result]);
   if (router.isFallback) {
     return <div>Loading...</div>
   }
   
   return (
-    <Layout title={result.name} loading={false} descript={result.name+" "+seodescription } img={`${process.env.image_url}${result.image[0]}`}>
+    <Layout title={result.name} loading={false} descript={seodescription } img={`${process.env.image_url}${result.image[0]}`}>
       <section className="product-details spad">
         <div className="container">
           <div className="row">
