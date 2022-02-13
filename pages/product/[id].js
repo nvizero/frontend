@@ -12,20 +12,22 @@ import ProductTabs from "@/components/product/productTabs";
 
 const ProductDetail = (props) => {  
   let { result ,attrib, buyToKnow } = props;
-   const router = useRouter();  
+  const router = useRouter();  
   const { data, loading } = useProducts();
   let pdata = false;
   if(loading===false){
-    pdata = data.data;        
+    pdata = data.data.sort(() => Math.random() - 0.5); 
   }
-  
-  useEffect(() => {}, [result]);
+  let seodescription = '';
+  useEffect(() => {
+    seodescription = result.description.substr(0,result.description.length);
+  }, [result]);
   if (router.isFallback) {
     return <div>Loading...</div>
   }
   
   return (
-    <Layout title={result.name} loading={false} descript={result.little+" "+result.descript} img={result.image[0]}>
+    <Layout title={result.name} loading={false} descript={result.name+" "+seodescription } img={result.image[0]}>
       <section className="product-details spad">
         <div className="container">
           <div className="row">
@@ -54,7 +56,7 @@ const ProductDetail = (props) => {
                   <i className="fa fa-star"></i>
                   <i className="fa fa-star"></i>
                   <i className="fa fa-star"></i>
-                  <span>( 138 reviews )</span>
+                  {/* <span>( 138 reviews )</span> */}
                 </div>
                 <div className="product__details__price">
                   $ {result.price} <span>$ {result.taiwan_price}</span>

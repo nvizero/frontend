@@ -1838,7 +1838,9 @@ ol {
 
 .product__details__widget ul li {
 	list-style: none;
-	margin-bottom: 10px;
+	/* margin-bottom: 0px; */
+	display:flex;
+	font-size: 14px;
 }
 
 .product__details__widget ul li:last-child {
@@ -1850,7 +1852,7 @@ ol {
 	font-size: 14px;
 	font-weight: 600;
 	color: #111111;
-	width: 150px;
+	width: 50px;
 	float: left;
 }
 
@@ -1964,6 +1966,10 @@ ol {
 	transform: rotate(127deg);
 	opacity: 0;
 	content: "";
+}
+
+.product__details__widget ul li .size__btn{	
+	margin-left: 20px;	
 }
 
 .product__details__widget ul li .size__btn label {

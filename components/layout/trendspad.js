@@ -3,6 +3,7 @@ function TrendSpad(props) {
   const { datas, productLoading } = props;
   let renderHtml;
   if (productLoading === false && datas !== undefined) {
+    // sort(() => Math.random() - 0.5)
     renderHtml = datas.map((row, key) => {
       return 3 > key ? (
         <div className="trend__item" key={key}>
