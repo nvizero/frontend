@@ -11,16 +11,18 @@ const Product = (props) => {
   function activeMenu(cate) {
     setProductActive(cate);
     const regex = new RegExp(cate);
-    let filtered = datas.data.filter(function (item, key) {
-      if (cate === "所有") {
-        return item;
-      } else {
-        return regex.test(item.tags);
-      }
-    });
-    setProductFilter(filtered);
+    if (productLoading === false) {
+      let filtered = datas.filter(function (item, key) {
+        if (cate === "所有") {
+          return item;
+        } else {
+          return regex.test(item.tags);
+        }
+      });
+      setProductFilter(filtered);
+    }
   }
-  let categories ="" ;
+  let categories = "";
   //動態選單
   if (cateogiesData !== undefined) {
     categories = cateogiesData.map((cate, key) => {
