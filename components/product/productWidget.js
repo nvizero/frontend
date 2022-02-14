@@ -5,7 +5,6 @@ const ProductWidget = (props) => {
   const [style2, setstyle2] = useState("");
   const [atv1, setAtv1] = useState([]);
   const [atv2, setAtv2] = useState([]);
-//   let atv = [];
   const handleClick = (k ,k2,cate_id) => {        
     if(k===0){
         setstyle1(cate_id);
@@ -14,8 +13,7 @@ const ProductWidget = (props) => {
         setstyle2(cate_id);
         setAtv2({i:k , i2:k2})
     }    
-  };
-    
+  };  
   return (
     <div className="product__details__widget">
       <ul>

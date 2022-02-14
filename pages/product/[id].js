@@ -9,38 +9,42 @@ import { useEffect, useState } from "react";
 import "react-tabs/style/react-tabs.css";
 import ProductTabs from "@/components/product/productTabs";
 
-
-const ProductDetail = (props) => {  
-  let { result ,attrib, buyToKnow } = props;
-  const router = useRouter();  
+const ProductDetail = (props) => {
+  let { result, attrib, buyToKnow, pid } = props;
+  const router = useRouter();
   const { data, loading } = useProducts();
   let pdata = false;
-  if(loading===false){
-    pdata = data.data.sort(() => Math.random() - 0.5); 
+  if (loading === false) {
+    pdata = data.data.sort(() => Math.random() - 0.5);
   }
-  let seodescription = '';
+  let seodescription = "";
   useEffect(() => {
     seodescription = result.description;
   }, [result]);
   if (router.isFallback) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
-  
+
   return (
-    <Layout title={result.name} loading={false} descript={seodescription } img={`${process.env.image_url}${result.image[0]}`}>
+    <Layout
+      title={result.name}
+      loading={false}
+      descript={seodescription}
+      img={`${process.env.image_url}${result.image[0]}`}
+      canonicalUrl={`${process.env.image_url}/product/${pid}`}
+    >
       <section className="product-details spad">
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
               <div className="product__details__pic">
                 <Carousel>
-                  {  result.image.map((row, key) => (
-                        <div key={key}>
-                          <img src={`${process.env.image_url}${row}`} />
-                          {/* <p className="legend">{row._id}</p> */}
-                        </div>
-                      ))
-                    }
+                  {result.image.map((row, key) => (
+                    <div key={key}>
+                      <img src={`${process.env.image_url}${row}`} />
+                      {/* <p className="legend">{row._id}</p> */}
+                    </div>
+                  ))}
                 </Carousel>
               </div>
             </div>
@@ -61,9 +65,7 @@ const ProductDetail = (props) => {
                 <div className="product__details__price">
                   $ {result.price} <span>$ {result.taiwan_price}</span>
                 </div>
-                <p>
-                {result.txt}
-                </p>
+                <p>{result.txt}</p>
                 <div className="product__details__button">
                   <div className="quantity">
                     <span>數量:</span>
@@ -91,7 +93,11 @@ const ProductDetail = (props) => {
               </div>
             </div>
             <div className="col-lg-12">
-              <ProductTabs pdata={result} prodloading={false} buyToKnow={buyToKnow} />
+              <ProductTabs
+                pdata={result}
+                prodloading={false}
+                buyToKnow={buyToKnow}
+              />
             </div>
           </div>
           <div className="row">
@@ -113,24 +119,22 @@ const ProductDetail = (props) => {
   );
 };
 
-
- 
-
-export const getServerSideProps = async ctx => {
-  
-  const res = await fetch(`${process.env.PRODUCT_API}api/v1/product/${ctx.params.id}`);
-  const pro = await res.json();  
-  const product  = pro.result;  
-  const attrib   = product.attrib;
-  const result   = product.product;
+export const getServerSideProps = async (ctx) => {
+  const res = await fetch(
+    `${process.env.PRODUCT_API}api/v1/product/${ctx.params.id}`
+  );
+  const pro = await res.json();
+  const product = pro.result;
+  const attrib = product.attrib;
+  const result = product.product;
   const buyToKnow = pro.buyToKnow;
-  return {props : { result ,attrib, buyToKnow} };
-}
-
+  const pid = ctx.params.id;
+  return { props: { result, attrib, buyToKnow, pid } };
+};
 
 // export async function getStaticPaths() {
 //   // Call an external API endpoint to get posts
-//   let  url = `${process.env.PRODUCT_API}`+'api/v1/productList';  
+//   let  url = `${process.env.PRODUCT_API}`+'api/v1/productList';
 //   const res = await fetch(url)
 //   const posts = await res.json()
 //   if (!posts) {
