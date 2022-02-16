@@ -31,7 +31,7 @@ const ProductDetail = (props) => {
       loading={false}
       descript={seodescription}
       img={`${process.env.image_url}${result.image[0]}`}
-      canonicalUrl={`${process.env.image_url}/product/${pid}`}
+      canonicalUrl={`http://lyra-buy.com/product/${pid}`}
     >
       <section className="product-details spad">
         <div className="container">
