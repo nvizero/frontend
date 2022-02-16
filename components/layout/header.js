@@ -198,7 +198,6 @@ function Header() {
 }
 
 export const getInitialProps = ({ store }) => {
-  // console.log(store);
   return { custom: "custom" }; // you can pass some custom props to component from here
 };
 
