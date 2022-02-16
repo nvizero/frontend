@@ -56,8 +56,7 @@ const ProductTabs = (props) => {
       <div className="tab-content">
         {descripts.map((row, key) => {
           return (
-            <div className={row.contentClass} role="tabpanel" key={key}>
-              <h6>{row.title}</h6>
+            <div className={row.contentClass} role="tabpanel" key={key}>              
               {parse(row.p)}
             </div>
           );

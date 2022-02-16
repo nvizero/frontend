@@ -57,7 +57,6 @@ const ProductList = ({ shopDatas, loading, limit, bstclass }) => {
               </h6>
               <div className="rating">
                 <i className="fa fa-star"></i>
-                
                 <i className="fa fa-star"></i>
                 <i className="fa fa-star"></i>
                 <i className="fa fa-star"></i>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { connect, useDispatch, useStore, useSelector } from "react-redux";
 let Menu = (props) => {
@@ -47,6 +48,7 @@ let Menu = (props) => {
 };
 
 function Header() {
+  const { data: sesion } = useSession();
   const is_login = useSelector((state) => state.is_login);
   const user_token = useSelector((state) => state.user_token);
   const headers = new Headers({
@@ -54,16 +56,16 @@ function Header() {
   });
   const handleLogout = () => {
     (async () => {
-      try {        
+      try {
         const rawResponse = await fetch("/api/v1/logout", {
           method: "POST",
           body: "",
-          headers: {            
+          headers: {
             "content-type": "application/json",
             authorization: `${user_token}`,
           },
         });
-        const content = await rawResponse.json();        
+        const content = await rawResponse.json();
       } catch (e) {
         console.log(e);
       }
@@ -137,20 +139,33 @@ function Header() {
           <div className="col-lg-3">
             <div className="header__right">
               <div className="header__right__auth">
-                {is_login === 1 ? (
-                  <>
-                    <a href="#" onClick={() => handleLogout()}>
+                {sesion  ? (
+                  <Link href={"/api/auth/signout"}>
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        signOut('github');
+                      }}
+                    >
                       登出{" "}
                     </a>
-                  </>
+                  </Link>
                 ) : (
                   <>
-                    <Link href={"/login"}>
-                      <a href="#">登入 </a>
+                    <Link href={"/api/auth/signin"}>
+                      <a
+                        onClick={(e) => {
+                          e.preventDefault();
+                          signIn();
+                        }}
+                      >
+                        登入
+                      </a>
                     </Link>
-                    <Link href={"/register"}>
-                      <a href="#">註冊</a>
-                    </Link>
+
+                    {/* <Link href={"/api/auth/signout"}>
+                      <a href="#">登出</a>
+                    </Link> */}
                   </>
                 )}
               </div>
@@ -183,7 +198,7 @@ function Header() {
 }
 
 export const getInitialProps = ({ store }) => {
-  console.log(store);
+  // console.log(store);
   return { custom: "custom" }; // you can pass some custom props to component from here
 };
 

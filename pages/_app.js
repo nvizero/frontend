@@ -6,12 +6,13 @@ import { useRouter } from "next/router";
 import { Provider } from "react-redux";
 import reducer from "@/actions/reducer";
 // import withRedux from "next-redux-wrapper";
+import {SessionProvider} from "next-auth/react";
 
 import * as gtag from "@/lib/gtag";
 
 const store = createStore(reducer);
  
-const WrappedApp = ({ Component, pageProps   }) => {
+const WrappedApp = ({ Component, pageProps:{session,...pageProps}   }) => {
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -24,7 +25,7 @@ const WrappedApp = ({ Component, pageProps   }) => {
   }, [router.events]);
 
   return (
-    <>
+    <SessionProvider session={session} >
       <Provider store={store}>        
         <Script
           strategy="afterInteractive"
@@ -46,7 +47,7 @@ const WrappedApp = ({ Component, pageProps   }) => {
         />
         <Component {...pageProps} />
       </Provider>
-    </>
+    </SessionProvider>
   );
 };
 
