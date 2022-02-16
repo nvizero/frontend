@@ -4,16 +4,30 @@ FROM node:16.13.0-alpine3.13 AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json yarn.lock ./
-COPY .env.local ./
-COPY .env.production ./
-COPY .env ./
-COPY .env /app
-COPY .env.production /app
-COPY .env.local /app
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:16.13.0-alpine3.13 AS builder
+ARG NEXT_PUBLIC_API_URL
+ARG NEXTAUTH_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXTAUTH_URL=$NEXTAUTH_URL
+
+ARG GITHUB_ID
+ARG GITHUB_SECRET
+ENV GITHUB_ID=$GITHUB_ID
+ENV GITHUB_SECRET=$GITHUB_SECRET
+
+ARG FACEBOOK_CLIENT_ID
+ARG FACEBOOK_CLIENT_SECRET
+ENV FACEBOOK_CLIENT_ID=$FACEBOOK_CLIENT_ID
+ENV FACEBOOK_CLIENT_SECRET=$FACEBOOK_CLIENT_SECRET
+
+ARG GOOGLE_ID
+ARG GOOGLE_SECRET
+ENV GOOGLE_ID=$GOOGLE_ID
+ENV GOOGLE_SECRET=$GOOGLE_SECRET
+
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules

@@ -9,3 +9,7 @@ next.config.js
 .next
 .env.local
 .env.production
+.env              
+.env.production   
+999env            
+.env.development
