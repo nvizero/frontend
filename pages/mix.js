@@ -22,14 +22,7 @@ const Mix = () => {
   //   }, []);
   return (
     <>
-      {process.env.NEXTAUTH_SECRET}<br/>
-      {process.env.NEXTAUTH_URL}<br/>
-      {process.env.GITHUB_ID}<br/>
-      {process.env.GITHUB_SECRET}<br/>
-      {process.env.FACEBOOK_CLIENT_ID}<br/>
-      {process.env.FACEBOOK_CLIENT_SECRET}<br/>
-      {process.env.GOOGLE_ID}<br/>
-      {process.env.GOOGLE_SECRET}<br/>
+       
     </>
   );
 };

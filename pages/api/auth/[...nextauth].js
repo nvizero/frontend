@@ -4,6 +4,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
 export default NextAuth({
   // Configure one or more authentication providers
+  site: process.env.SITE || 'http://localhost:3000',
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,
