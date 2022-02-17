@@ -37,10 +37,10 @@ let Menu = (props) => {
       <nav className="header__menu">
         <ul>
           {mainMenu}
-          <li>
+          {/* <li>
             <a href="#">Pages</a>
             <ul className="dropdown">{subMenu}</ul>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </>
@@ -90,32 +90,32 @@ function Header() {
       link: "/contact",
       active: "/contact",
     },
-    {
-      key: 4,
-      title: "分類",
-      link: "/category",
-      active: "/category",
-      subMenus: [
-        {
-          key: 1,
-          title: "Product Details",
-          link: "/shop",
-          active: "/shop",
-        },
-        {
-          key: 2,
-          title: "Shop Cart",
-          link: "/shop",
-          active: "/shop",
-        },
-        {
-          key: 3,
-          title: " 12",
-          link: "/shop",
-          active: "/shop",
-        },
-      ],
-    },
+    // {
+    //   key: 4,
+    //   title: "分類",
+    //   link: "/category",
+    //   active: "/category",
+    //   subMenus: [
+    //     {
+    //       key: 1,
+    //       title: "Product Details",
+    //       link: "/shop",
+    //       active: "/shop",
+    //     },
+    //     {
+    //       key: 2,
+    //       title: "Shop Cart",
+    //       link: "/shop",
+    //       active: "/shop",
+    //     },
+    //     {
+    //       key: 3,
+    //       title: " 12",
+    //       link: "/shop",
+    //       active: "/shop",
+    //     },
+    //   ],
+    // },
   ];
 
   const router = useRouter();
