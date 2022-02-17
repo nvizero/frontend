@@ -2,28 +2,37 @@ import Link from "next/link";
 
 const ProductList = ({ shopDatas, loading, limit, bstclass }) => {
   let renderHtml = "";
-  
-  if (loading === false && shopDatas !== undefined ) {
-    
-    renderHtml = shopDatas.map((row, key) => {      
-      let img = (row.image.length > 0) ?  row.image[0] :'';
+
+  if (loading === false && shopDatas !== undefined) {
+    renderHtml = shopDatas.map((row, key) => {
+      let img = row.image.length > 0 ? row.image[0] : "";
       return limit > key ? (
         <div className={bstclass} key={key}>
           <div className="product__item">
-            <div
-              className="product__item__pic set-bg"
-              style={{
-                backgroundImage: "url(" + `${process.env.image_url}` + img + ")",
+            <Link
+              href={{
+                pathname: "/product/[id]",
+                query: {
+                  id: row.id,
+                },
               }}
             >
-              {row.tag ? (
-                <div className={"label " + row.tag.type} key={key}>
-                  {row.tag.name}
-                </div>
-              ) : (
-                ""
-              )}
-              <ul className="product__hover">
+              <a href="#">
+                <div
+                  className="product__item__pic set-bg"
+                  style={{
+                    backgroundImage:
+                      "url(" + `${process.env.image_url}` + img + ")",
+                  }}
+                >
+                  {row.tag ? (
+                    <div className={"label " + row.tag.type} key={key}>
+                      {row.tag.name}
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                  {/* <ul className="product__hover">
                 <li>
                   <a href="img/shop/shop-1.jpg" className="image-popup">
                     <span className="arrow_expand"></span>
@@ -39,9 +48,10 @@ const ProductList = ({ shopDatas, loading, limit, bstclass }) => {
                     <span className="icon_bag_alt"></span>
                   </a>
                 </li>
-              </ul>
-            </div>
-
+              </ul> */}
+                </div>
+              </a>
+            </Link>
             <div className="product__item__text">
               <h6>
                 <Link
