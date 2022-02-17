@@ -5,7 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 require("dotenv").config()
 export default NextAuth({
   // Configure one or more authentication providers
-  site: process.env.SITE || 'http://localhost:3000',
+  site: process.env.SITE,
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID,

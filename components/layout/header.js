@@ -144,7 +144,7 @@ function Header() {
                     <a
                       onClick={(e) => {
                         e.preventDefault();
-                        signOut('github');
+                        signOut();
                       }}
                     >
                       登出{" "}
