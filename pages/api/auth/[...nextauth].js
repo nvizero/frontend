@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
+require("dotenv").config()
 export default NextAuth({
   // Configure one or more authentication providers
   site: process.env.SITE || 'http://localhost:3000',
