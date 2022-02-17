@@ -4,8 +4,7 @@ module.exports = {
   siteUrl,
   generateRobotsTxt: true,
   robotsTxtOptions: {
-    policies:[
-      { userAgent: "",disallow: "/secret"},
+    policies:[      
       { userAgent: "",allow: "/"},
     ],
     additionalSitemaps: [
