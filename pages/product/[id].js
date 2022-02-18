@@ -29,7 +29,7 @@ const ProductDetail = (props) => {
     <Layout
       title={result.name}
       loading={false}
-      descript={seodescription}
+      descript={result.txt}
       img={`${process.env.image_url}${result.image[0]}`}
       canonicalUrl={`http://lyra-buy.com/product/${pid}`}
     >

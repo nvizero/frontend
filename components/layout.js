@@ -8,10 +8,10 @@ const Layout = (props) => {
   return (
     <>
       <Head>
-        <title>{title ? title + " " : ""}Lyra Buy 美國代購</title>
+        <title>{title ? title + " " : ""} Lyra Buy 美國代購</title>
         <meta charSet="UTF-8" />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="description" content={descript ? descript : "用最少的價額,買到CP值最高的精品" } />
+        <meta name="description" content={descript ? descript : "最優質的精品,CP值最高的產品" } />
         <meta property="og:description" content={descript}></meta>
         <meta
           property="og:title"
@@ -19,8 +19,9 @@ const Layout = (props) => {
         ></meta>
         <meta property="og:type" content="LyraBuy 美國代購"></meta>
         <meta property="og:image" content={img} />
-        <meta name="keywords" content="Lyra,Buy,美國代購,Lyra Buy" />
+        <meta name="keywords" content="Lyra,Buy,美國代購,Lyra Buy,Lyra Shop" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="Canonical" href={canonicalUrl} />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-71M8ZRTSJR"
           strategy="afterInteractive"
@@ -33,7 +34,7 @@ const Layout = (props) => {
           gtag('config', 'G-71M8ZRTSJR');
         `}
         </Script>
-        <link rel="alternate" href={canonicalUrl} />
+        <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
       </Head>
 
       <>
