@@ -1,18 +1,17 @@
 import "@/public/css/main.css";
 import React, { useEffect } from "react";
-import { createStore } from "redux";
+// import { createStore } from "redux";
 import Script from "next/script";
 import { useRouter } from "next/router";
-import { Provider } from "react-redux";
-import reducer from "@/actions/reducer";
-// import withRedux from "next-redux-wrapper";
-import {SessionProvider} from "next-auth/react";
+// import { Provider } from "react-redux";
+//import reducer from "@/actions/reducer";
+import {store, wrapper} from '@/store'
 
 import * as gtag from "@/lib/gtag";
 
-const store = createStore(reducer);
+// const store = createStore(reducer);
  
-const WrappedApp = ({ Component, pageProps:{session,...pageProps}   }) => {
+const WrappedApp = ({ Component, pageProps:{...pageProps}   }) => {
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -23,10 +22,8 @@ const WrappedApp = ({ Component, pageProps:{session,...pageProps}   }) => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
-
-  return (
-    <SessionProvider session={session} >
-      <Provider store={store}>        
+  return (    
+      <>        
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
@@ -46,12 +43,13 @@ const WrappedApp = ({ Component, pageProps:{session,...pageProps}   }) => {
           }}
         />
         <Component {...pageProps} />
-      </Provider>
-    </SessionProvider>
+      </>
+    
   );
 };
 
 
 //export default withRedux(makeStore)(WrappedApp);
-export default WrappedApp;
+// export default WrappedApp;
+export default wrapper.withRedux(WrappedApp)
 //export default App;

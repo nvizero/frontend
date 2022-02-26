@@ -1,16 +1,16 @@
+import React, { useState, useEffect } from "react";
+
 import Layout from "@/components/layout";
 import ReactGA from "react-ga";
 import { useForm } from "react-hook-form";
 import { connect, useDispatch, useStore, useSelector } from "react-redux";
-
+import { useRouter } from "next/router";
+import { login } from "@/store/slices/auth";
+import { wrapper } from "@/store";
 ReactGA.pageview("login");
 
 function Login(props) {
-  const is_login = useSelector(state => state.is_login);
-  const user_token = useSelector(state => state.user_token);
-  const store = useStore();
-  
-
+  const router = useRouter()
   const dispatch = useDispatch();
   const {
     register,
@@ -18,22 +18,21 @@ function Login(props) {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = (data) => {    
     (async () => {
-      const rawResponse = await fetch("/api/v1/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      const content = await rawResponse.json();
-
-      if (content.status === 1) {
-        // console.log(content);
-        dispatch({
-          type: "UPDATE_PROFILE",
-          payload:  content ,
-        });
-      } else {
+      let {email , password} = data;      
+      let res = await dispatch(
+        login({
+          grant_type: "password",
+          email,
+          password,
+        })
+      );    
+      
+      if(res.payload.isLogin){
+        router.push("/")
       }
+      
     })();
   };
 
@@ -115,4 +114,24 @@ function Login(props) {
     </Layout>
   );
 }
-export default connect()(Login);
+// export default connect()(Login);
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    ({ ctx }) => {
+      const { isLogin, me } = store.getState().auth;
+      if (isLogin) {
+        return {
+          redirect: {
+            destination: "/",
+            permanent: false,
+          },
+        };
+      }
+      return {
+        props: {},
+      };
+    }
+);
+
+export default Login;

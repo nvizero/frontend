@@ -1,7 +1,7 @@
 import Layout from "@/components/layout";
-import { useSelector, useDispatch } from "react-redux";
-function Contact() {
-  const todoList = useSelector((state) => state.todoList);
+import { useSelector } from "react-redux";
+let Contact = (props) => {
+  const data = useSelector((state) => state.auth);    
   return (
     <Layout title={"關於我們 "}>
       <section className="contact spad">
@@ -11,17 +11,15 @@ function Contact() {
               <div className="contact__content">
                 <div className="contact__address">
                   <h5>Contact info</h5>
-                   
+
                   <ul>
                     <li>
                       <h6>
                         <i className="fa fa-map-marker"></i> Address
                       </h6>
-                      <p>
-                        -
-                      </p>
+                      <p>-</p>
                     </li>
-                    <li style={{"display":"none"}}>
+                    <li style={{ display: "none" }}>
                       <h6>
                         <i className="fa fa-phone"></i> Phone
                       </h6>
@@ -57,6 +55,6 @@ function Contact() {
       </section>
     </Layout>
   );
-}
+};
 
 export default Contact;
