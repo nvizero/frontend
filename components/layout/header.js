@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { connect, useDispatch, useStore, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/slices/auth";
 let Menu = (props) => {
   const { datas, router } = props;
@@ -47,9 +48,8 @@ let Menu = (props) => {
   );
 };
 
-function Header() {
+const AuthStatus = ({ auth }) => {  
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
   const handleLogout = () => {
     (async () => {
       try {
@@ -61,12 +61,31 @@ function Header() {
           },
         });
         const content = await rawResponse.json();
-        dispatch(logout());
       } catch (e) {
         console.log(e);
       }
     })();
+    dispatch(logout());
   };
+
+  return (
+    <>
+      <a href="#" onClick={() => handleLogout()}>
+        登出
+      </a>
+    </>
+  );
+};
+
+function Header() {
+  const auth = useSelector((state) => state.auth);
+  const router = useRouter();   
+  const [isLogin ,setIsLogin] = useState(false);
+  useEffect(() => {
+    if(auth.isLogin===true){
+      setIsLogin(true) 
+    }
+  }, [auth]);
   let menus = [
     {
       key: 1,
@@ -86,35 +105,7 @@ function Header() {
       link: "/contact",
       active: "/contact",
     },
-    // {
-    //   key: 4,
-    //   title: "分類",
-    //   link: "/category",
-    //   active: "/category",
-    //   subMenus: [
-    //     {
-    //       key: 1,
-    //       title: "Product Details",
-    //       link: "/shop",
-    //       active: "/shop",
-    //     },
-    //     {
-    //       key: 2,
-    //       title: "Shop Cart",
-    //       link: "/shop",
-    //       active: "/shop",
-    //     },
-    //     {
-    //       key: 3,
-    //       title: " 12",
-    //       link: "/shop",
-    //       active: "/shop",
-    //     },
-    //   ],
-    // },
   ];
-
-  const router = useRouter();
 
   return (
     <header className="header">
@@ -135,20 +126,17 @@ function Header() {
           <div className="col-lg-3">
             <div className="header__right">
               <div className="header__right__auth">
-                {auth.isLogin ? (
-                  <a href="#" onClick={() => handleLogout()}>
-                    登出{" "}
-                  </a>
-                ) : (
+                {isLogin ? (
                   <>
                     <Link href={"/login"}>
                       <a href="#">登入</a>
                     </Link>
-
                     <Link href={"/register"}>
                       <a href="#">register</a>
                     </Link>
                   </>
+                ) : (
+                  <AuthStatus auth={auth} />
                 )}
               </div>
               <ul className="header__right__widget">
@@ -158,13 +146,13 @@ function Header() {
                 <li>
                   <a href="#">
                     <span className="icon_heart_alt"></span>
-                    <div className="tip">2</div>
+                    {/* <div className="tip">2</div> */}
                   </a>
                 </li>
                 <li>
                   <a href="#">
                     <span className="icon_bag_alt"></span>
-                    <div className="tip">2</div>
+                    {/* <div className="tip">2</div> */}
                   </a>
                 </li>
               </ul>
@@ -183,6 +171,4 @@ export const getInitialProps = ({ store }) => {
   return { custom: "custom" }; // you can pass some custom props to component from here
 };
 
-//export default connect(state => state)(Header);
-// export default Header;
-export default connect()(Header);
+export default Header;

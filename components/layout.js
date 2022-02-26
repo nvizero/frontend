@@ -1,9 +1,9 @@
-import Header from "./layout/header";
-import Footer from "./layout/footer";
-import Ig from "./layout/ig";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
+import Ig from "@/components/layout/ig";
 import Head from "next/head";
 import Script from "next/script";
-const Layout = (props) => {  
+const Layout = (props) => { 
   const { children, title, loading, descript, img, canonicalUrl } = props;
   return (
     <>

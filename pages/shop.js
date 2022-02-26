@@ -36,7 +36,7 @@ const Shop = (props) => {
               <div className="col-lg-9 col-md-9">
                 <div className="row">
                   <ProductList
-                    shopDatas={store.productList}
+                    shopDatas={shopDatas.data}
                     loading={load}
                     limit={9}
                     bstclass={"col-lg-4 col-md-6"}
