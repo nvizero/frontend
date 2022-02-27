@@ -1,11 +1,14 @@
 import Layout from "@/components/layout";
 import ReactGA from "react-ga";
-import ReactDOM from "react-dom";
+import {useRouter} from "next/router";
 import { useForm } from "react-hook-form";
-
+import {  useDispatch } from "react-redux";
+import { login } from "@/store/slices/auth";
 ReactGA.pageview("register");
 
 export default function Register() {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -20,7 +23,20 @@ export default function Register() {
       });
       const content = await rawResponse.json();
 
-      console.log(content);
+      console.log(content  , ' -------- .. ' , data);
+      let {email , password } = data;
+      let res = await dispatch(
+        login({
+          grant_type: "password",
+          email,
+          password,
+        })
+      );    
+      
+      if(res.payload.isLogin){
+        router.push("/")
+      }
+
     })();
   };
 

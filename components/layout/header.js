@@ -48,7 +48,8 @@ let Menu = (props) => {
   );
 };
 
-const AuthStatus = ({ auth }) => {  
+const AuthStatus = ({ auth }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const handleLogout = () => {
     (async () => {
@@ -65,7 +66,14 @@ const AuthStatus = ({ auth }) => {
         console.log(e);
       }
     })();
-    dispatch(logout());
+
+    const res = dispatch(logout());
+    if (res.payload) {
+      Cookies.remove("auth.me"); // fail!
+      Cookies.remove("auth.isLogin"); // fail!
+      Cookies.remove("auth.accessToken"); // fail!
+    }
+    router.push("/login");
   };
 
   return (
@@ -79,11 +87,11 @@ const AuthStatus = ({ auth }) => {
 
 function Header() {
   const auth = useSelector((state) => state.auth);
-  const router = useRouter();   
-  const [isLogin ,setIsLogin] = useState(false);
+  const router = useRouter();
+  const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
-    if(auth.isLogin===true){
-      setIsLogin(true) 
+    if (auth.isLogin === true) {
+      setIsLogin(true);
     }
   }, [auth]);
   let menus = [
@@ -126,17 +134,17 @@ function Header() {
           <div className="col-lg-3">
             <div className="header__right">
               <div className="header__right__auth">
-                {isLogin ? (
+                {isLogin === true ? (
+                  <AuthStatus auth={auth} />
+                ) : (
                   <>
                     <Link href={"/login"}>
-                      <a href="#">登入</a>
+                      <a href="#" className="header_login">登入</a>
                     </Link>
                     <Link href={"/register"}>
-                      <a href="#">register</a>
+                      <a href="#" className="header_register">註冊</a>
                     </Link>
                   </>
-                ) : (
-                  <AuthStatus auth={auth} />
                 )}
               </div>
               <ul className="header__right__widget">
