@@ -1,8 +1,8 @@
 import Layout from "@/components/layout";
 import ReactGA from "react-ga";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import {  useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "@/store/slices/auth";
 ReactGA.pageview("register");
 
@@ -15,28 +15,27 @@ export default function Register() {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {        
+  const onSubmit = (data) => {
     (async () => {
       const rawResponse = await fetch("/api/v1/register", {
-        method: "POST",        
+        method: "POST",
         body: JSON.stringify(data),
       });
       const content = await rawResponse.json();
+      if (content.status === 1) {
+        let { email, password } = data;
+        let res = await dispatch(
+          login({
+            grant_type: "password",
+            email,
+            password,
+          })
+        );
 
-      console.log(content  , ' -------- .. ' , data);
-      let {email , password } = data;
-      let res = await dispatch(
-        login({
-          grant_type: "password",
-          email,
-          password,
-        })
-      );    
-      
-      if(res.payload.isLogin){
-        router.push("/")
+        if (res.payload.isLogin) {
+          router.push("/");
+        }
       }
-
     })();
   };
 
