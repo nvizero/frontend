@@ -5,7 +5,7 @@ import { HYDRATE } from "next-redux-wrapper";
 
 // 退出登录
 export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
-  try {    
+  try {
     return true;
   } catch (error) {
     return thunkAPI.rejectWithValue({ errorMsg: error.message });
@@ -41,7 +41,7 @@ export const login = createAsyncThunk(
         return {
           accessToken: resdata.token,
           isLogin: true,
-          me: { name: refetch.data.name },
+          me: { name: refetch.data.name, user_id: refetch.data.id },
         };
       } else {
         return thunkAPI.rejectWithValue({ errorMsg: response.data.message });
@@ -56,6 +56,7 @@ export const login = createAsyncThunk(
 const internalInitialState = {
   accessToken: null,
   me: null,
+  user_id: null,
   errorMsg: null,
   isLogin: false,
 };
@@ -74,20 +75,20 @@ export const authSlice = createSlice({
   extraReducers: {
     // 水合，拿到服务器端的reducer注入到客户端的reducer，达到数据统一的目的
     [HYDRATE]: (state, action) => {
-      console.log("HYDRATE", state, action.payload);
+      // console.log("HYDRATE", state, action.payload);
       return Object.assign({}, state, { ...action.payload.auth });
     },
     [login.fulfilled]: (state, action) => {
       state.accessToken = action.payload.accessToken;
       state.isLogin = action.payload.isLogin;
-      state.me = action.payload.me;
+      state.me = action.payload.me;      
     },
     [login.rejected]: (state, action) => {
-      console.log("action=>", action);
+      // console.log("action=>", action);
       state = Object.assign(Object.assign({}, internalInitialState), {
         errorMsg: action.payload.errorMsg,
       });
-      console.log("state=>", state);
+      // console.log("state=>", state);
       // throw new Error(action.error.message);
     },
     [fetchUser.rejected]: (state, action) => {

@@ -1,14 +1,13 @@
 import Layout from "@/components/layout";
 import { useProducts } from "@/actions/products";
 import ProductList from "@/components/product/productList";
-import ProductWidget from "@/components/product/productWidget";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import ProductStyle from "@/components/product/productStyle";
 import { Carousel } from "react-responsive-carousel";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import "react-tabs/style/react-tabs.css";
 import ProductTabs from "@/components/product/productTabs";
-
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-tabs/style/react-tabs.css";
 const ProductDetail = (props) => {
   let { result, attrib, buyToKnow, pid } = props;
   const router = useRouter();
@@ -48,49 +47,8 @@ const ProductDetail = (props) => {
                 </Carousel>
               </div>
             </div>
-            <div className="col-lg-6">
-              <div className="product__details__text">
-                <h3>
-                  {result.name}
-                  <span> {result.little} </span>
-                </h3>
-                <div className="rating">
-                  <i className="fa fa-star"></i>
-                  <i className="fa fa-star"></i>
-                  <i className="fa fa-star"></i>
-                  <i className="fa fa-star"></i>
-                  <i className="fa fa-star"></i>
-                  {/* <span>( 138 reviews )</span> */}
-                </div>
-                <div className="product__details__price">
-                  $ {result.price} <span>$ {result.taiwan_price}</span>
-                </div>
-                <p>{result.txt}</p>
-                <div className="product__details__button">
-                  <div className="quantity">
-                    <span>數量:</span>
-                    <div className="pro-qty">
-                      <input type="text" defaultValue="1" />
-                    </div>
-                  </div>
-                  <a href="#" className="cart-btn">
-                    <span className="icon_bag_alt"></span>加入購物車
-                  </a>
-                  <ul>
-                    <li>
-                      <a href="#">
-                        <span className="icon_heart_alt"></span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <span className="icon_adjust-horiz"></span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <ProductWidget attrib={attrib} />
-              </div>
+            <div className="col-lg-6">               
+                <ProductStyle attrib={attrib} result={result} />               
             </div>
             <div className="col-lg-12">
               <ProductTabs
@@ -103,7 +61,7 @@ const ProductDetail = (props) => {
           <div className="row">
             <div className="col-lg-12 text-center">
               <div className="related__title">
-                <h5>RELATED PRODUCTS</h5>
+                <h5>猜你喜歡</h5>
               </div>
             </div>
             <ProductList
@@ -132,34 +90,5 @@ export const getServerSideProps = async (ctx) => {
   return { props: { result, attrib, buyToKnow, pid } };
 };
 
-// export async function getStaticPaths() {
-//   // Call an external API endpoint to get posts
-//   let  url = `${process.env.PRODUCT_API}`+'api/v1/productList';
-//   const res = await fetch(url)
-//   const posts = await res.json()
-//   if (!posts) {
-//     return {
-//       notFound: true,
-//     }
-//   }
-//   // Get the paths we want to pre-render based on posts
-//   const paths = posts.map((post) => ({
-//     params: { id: post.id.toString() },
-//   }))
-
-//   // We'll pre-render only these paths at build time.
-//   // { fallback: false } means other routes should 404.
-//   return { paths, fallback: false }
-// }
-
-// export async function getStaticProps({ params }) {
-//   // console.log(params , '...3');
-//   // const { id } = context.query;
-//   const res = await fetch(`${process.env.PRODUCT_API}api/v1/product/${params.id}`);
-//   let result = await res.json();
-//   return {
-//     props: { result }, // will be passed to the page component as props
-//   };
-// }
 
 export default ProductDetail;

@@ -121,24 +121,24 @@ export default function Register() {
 
                   <hr className="my-4" />
 
-                  <div className="d-grid mb-2">
+                  {/* <div className="d-grid mb-2">
                     <button
                       className="btn btn-lg btn-google btn-login fw-bold text-uppercase"
                       type="submit"
                     >
-                      <i className="fab fa-google me-2"></i> Sign up with Google
+                      <i className="fab fa-google me-2"></i> 以Google註冊
                     </button>
-                  </div>
+                  </div> */}
 
-                  <div className="d-grid">
+                  {/* <div className="d-grid">
                     <button
                       className="btn btn-lg btn-facebook btn-login fw-bold text-uppercase"
                       type="submit"
                     >
-                      <i className="fab fa-facebook-f me-2"></i> Sign up with
-                      Facebook
+                      <i className="fab fa-facebook-f me-2"></i> 
+                      以Facebook註冊
                     </button>
-                  </div>
+                  </div> */}
                 </form>
               </div>
             </div>

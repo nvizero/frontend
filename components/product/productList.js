@@ -5,7 +5,7 @@ const ProductList = ({ shopDatas, loading, limit, bstclass }) => {
 
   if (loading === false && shopDatas !== undefined) {
     renderHtml = shopDatas.map((row, key) => {
-      let img = row.image.length > 0 ? row.image[0] : "";
+      let img = row.avatar ? row.avatar :row.image[0] ;
       return limit > key ? (
         <div className={bstclass} key={key}>
           <div className="product__item">
