@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/store/slices/auth";
 let Menu = (props) => {
   const { datas, router } = props;
@@ -87,6 +87,7 @@ const AuthStatus = ({ auth }) => {
 
 function Header() {
   const auth = useSelector((state) => state.auth);
+  const prod = useSelector((state) => state.prod);
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
@@ -139,10 +140,14 @@ function Header() {
                 ) : (
                   <>
                     <Link href={"/login"}>
-                      <a href="#" className="header_login">登入</a>
+                      <a href="#" className="header_login">
+                        登入
+                      </a>
                     </Link>
                     <Link href={"/register"}>
-                      <a href="#" className="header_register">註冊</a>
+                      <a href="#" className="header_register">
+                        註冊
+                      </a>
                     </Link>
                   </>
                 )}
@@ -151,17 +156,21 @@ function Header() {
                 <li>
                   <span className="icon_search search-switch"></span>
                 </li>
+                {/*
                 <li>
                   <a href="#">
                     <span className="icon_heart_alt"></span>
-                    {/* <div className="tip">2</div> */}
+                     <div className="tip">2</div> 
                   </a>
                 </li>
+                */}
                 <li>
-                  <a href="#">
-                    <span className="icon_bag_alt"></span>
-                    {/* <div className="tip">2</div> */}
-                  </a>
+                  <Link href={"/product/cartList"}>
+                    <a href="#">
+                      <span className="icon_bag_alt"></span>
+                      <div className="tip">{prod.cartCount}</div>
+                    </a>
+                  </Link>
                 </li>
               </ul>
             </div>

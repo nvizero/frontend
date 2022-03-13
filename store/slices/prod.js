@@ -36,13 +36,11 @@ export const addCart = createAsyncThunk(
           }
         });
       if (response.status === 200) {
-        // 获取用户信息
-        // console.log(response.data);
-        // console.log(response.data.cart);
-        
+        // 获取用户信息        
         return {
           cartList: response.data.cart,
-          cartCount: response.data.count
+          cartCount: response.data.count,
+          tidyCart: response.data.tidyCart,
         };
       } else {
         console.log(response, response.status, ".....");
@@ -79,10 +77,10 @@ export const prodSlice = createSlice({
       return Object.assign({}, state, { ...action.payload.prod });
     },
     [addCart.fulfilled]: (state, action) => {
-      console.log(action);
-      // state.accessToken = action.payload.accessToken;
-      // state.isLogin = action.payload.isLogin;
-      // state.me = action.payload.me;
+           
+      state.cartList = action.payload.cartList;
+      state.cartCount=  action.payload.cartCount;
+      state.tidyCart =action.payload.tidyCart;
       state.status = true;
     },
     [addCart.rejected]: (state, action) => {      

@@ -27,9 +27,12 @@ export const store = wrapMakeStore(() =>
               "auth.accessToken",
               "auth.isLogin",
               "auth.me",
+              "auth.user_id",
               "prod.cartList",
               "prod.prevItem",
               "prod.count",
+              "prod.cartCount",
+              "prod.tidyCart"        
             ],
           })
         )

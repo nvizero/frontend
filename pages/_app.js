@@ -1,12 +1,8 @@
 import "@/public/css/main.css";
 import React, { useEffect } from "react";
-// import { createStore } from "redux";
 import Script from "next/script";
 import { useRouter } from "next/router";
-// import { Provider } from "react-redux";
-//import reducer from "@/actions/reducer";
 import {store, wrapper} from '@/store'
-
 import * as gtag from "@/lib/gtag";
 
 // const store = createStore(reducer);

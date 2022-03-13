@@ -42,6 +42,7 @@ export const login = createAsyncThunk(
           accessToken: resdata.token,
           isLogin: true,
           me: { name: refetch.data.name, user_id: refetch.data.id },
+          user_id:  refetch.data.id ,
         };
       } else {
         return thunkAPI.rejectWithValue({ errorMsg: response.data.message });
@@ -82,14 +83,13 @@ export const authSlice = createSlice({
       state.accessToken = action.payload.accessToken;
       state.isLogin = action.payload.isLogin;
       state.me = action.payload.me;      
+      state.user_id = action.payload.user_id;      
     },
     [login.rejected]: (state, action) => {
-      // console.log("action=>", action);
+      
       state = Object.assign(Object.assign({}, internalInitialState), {
         errorMsg: action.payload.errorMsg,
-      });
-      // console.log("state=>", state);
-      // throw new Error(action.error.message);
+      });      
     },
     [fetchUser.rejected]: (state, action) => {
       state = Object.assign(Object.assign({}, internalInitialState), {
